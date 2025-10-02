@@ -9,10 +9,6 @@ inputs:
     description: Install binaries instrumented with memory sanitization
     required: false
     default: false
-  cache:
-    description: Cache the results
-    required: false
-    default: true
 runs:
   using: composite
   steps:
