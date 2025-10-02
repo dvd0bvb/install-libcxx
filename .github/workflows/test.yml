@@ -1,6 +1,7 @@
 name: Test Install libc++
 
 on:
+  workflow_dispatch: 
   push:
     branches: main
 
