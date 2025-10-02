@@ -21,9 +21,17 @@ jobs:
         with:
           libcxx_version: 18.1.3 
           msan: ${{ matrix.msan }}
+      - id: msan-flag
+        run: |
+          if [[ "${{ matrix.msan }}"" = "true"]]; then
+            MSAN_FLAG=-DMSAN_FLAGS=ON
+          else
+            MSAN_FLAG=-DMSAN_FLAGS=OFF
+          fi
+          echo "msan-flag=$MSAN_FLAG" >> $GITHUB_OUTPUT
       - name: Build
         working-directory: test-code
         run: |
-          cmake -B build -S . -DCMAKE_CXX_COMPILER=clang++ -DLIBCXX_INCLUDE_PATH=/usr/local/include/libcxx -DLIBCXX_LIB_PATH=/usr/local/lib/libcxx
+          cmake -B build -S . -DCMAKE_CXX_COMPILER=clang++ -DLIBCXX_INCLUDE_PATH=/usr/local/include/libcxx -DLIBCXX_LIB_PATH=/usr/local/lib/libcxx ${{ steps.msan-flag.outputs.msan-flag }}
           cmake --build build --target all
           
