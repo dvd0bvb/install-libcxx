@@ -18,7 +18,7 @@ jobs:
         uses: ./
         id: install-libcxx
         with:
-          libcxx-version: 18.1.3 
+          libcxx_version: 18.1.3 
           msan: ${{ matrix.msan }}
       - name: Build
         working-directory: test-code
