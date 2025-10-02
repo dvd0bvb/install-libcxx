@@ -9,6 +9,10 @@ option(LIBCXX_LIB_PATH "Path to libc++ libraries")
 add_executable(${EXECUTABLE_NAME} main.cpp)
 
 target_compile_features(${EXECUTABLE_NAME} PRIVATE cxx_std_23)
-target_compile_options(${EXECUTABLE_NAME} PRIVATE -stdlib=libc++ -isystem ${LIBCXX_INCLUDE_PATH}/c++/v1)
+target_compile_options(${EXECUTABLE_NAME} PRIVATE 
+  -stdlib=libc++
+  -nostdinc++
+  -nostdlib++
+  -isystem ${LIBCXX_INCLUDE_PATH}/c++/v1)
 target_link_libraries(${EXECUTABLE_NAME} PRIVATE c++ c++abi)
 target_link_directories(${EXECUTABLE_NAME} PRIVATE ${LIBCXX_LIB_PATH})
