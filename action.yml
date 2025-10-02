@@ -26,5 +26,5 @@ runs:
       shell: bash
 
 branding:
-  icon: action
+  icon: activity
   color: gray-dark
