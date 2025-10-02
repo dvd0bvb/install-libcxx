@@ -24,6 +24,6 @@ jobs:
       - name: Build
         working-directory: test-code
         run: |
-          cmake -B build -S . -DCMAKE_CXX_COMPILER=clang++ -DLIBCXX_INCLUDE_PATH=/usr/local/include/build-libcxx -DLIBCXX_LIB_PATH=/usr/local/lib/build-libcxx
+          cmake -B build -S . -DCMAKE_CXX_COMPILER=clang++ -DLIBCXX_INCLUDE_PATH=/usr/local/include/libcxx -DLIBCXX_LIB_PATH=/usr/local/lib/libcxx
           cmake --build build --target all
           
