@@ -23,7 +23,8 @@ jobs:
           msan: ${{ matrix.msan }}
       - id: msan-flag
         run: |
-          if [[ "${{ matrix.msan }}" = "true"]]; then
+          MSAN_ENABLED=${{ matrix.msan }}
+          if [[ "$MSAN_ENABLED" = "true" ]]; then
             MSAN_FLAG=-DMSAN_FLAGS=ON
           else
             MSAN_FLAG=-DMSAN_FLAGS=OFF
