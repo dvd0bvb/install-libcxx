@@ -1,0 +1,34 @@
+name: install-libcxx
+description: Install libc++ with or without msan instrumentation as a Github action
+author: David Brill
+inputs:
+  libcxx_version:
+    description: Version of libc++ to install
+    required: true
+  msan:
+    description: Install binaries instrumented with memory sanitization
+    required: false
+    default: false
+  cache:
+    description: Cache the results
+    required: false
+    default: true
+runs:
+  using: composite
+  steps:
+    - id: generate-name
+      run: | 
+        MSAN=${{ inputs.msan }}
+        if [[ "$MSAN" != "false" ]]; then 
+          SUFFIX=-msan
+        fi
+        echo "package-name=libcxx-${{ inputs.libcxx_version }}$SUFFIX" >> $GITHUB_OUTPUT
+      shell: bash
+    - run: |
+        wget $(wget -q -O - https://api.github.com/repos/dvd0bvb/gtest-with-msan/releases/tags/${{ inputs.libcxx_version }} |  jq -r '.assets[] | select(.name == ${{ steps.generate-name.outputs.package-name }}.deb) | .browser_download_url')        
+        sudo dpkg -i ${{ steps.generate-name.outputs.package-name }}.deb
+      shell: bash
+
+branding:
+  icon: action
+  color: gray-dark

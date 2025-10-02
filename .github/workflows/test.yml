@@ -1,0 +1,27 @@
+name: Test Install libc++
+
+on:
+  push:
+    branches: main
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        msan: [true, false]
+
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install libcxx
+        uses: ./install-libcxx
+        id: install-libcxx
+        with:
+          msan: ${{ matrix.msan }}
+      - name: Build
+        working-directory: test-code
+        run: |
+          cmake -B build -S .
+          cmake --build build --target all
+          
