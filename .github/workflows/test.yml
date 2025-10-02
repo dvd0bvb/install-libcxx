@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install libcxx
-        uses: ./install-libcxx
+        uses: ./
         id: install-libcxx
         with:
           msan: ${{ matrix.msan }}
