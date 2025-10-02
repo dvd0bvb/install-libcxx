@@ -24,6 +24,6 @@ jobs:
       - name: Build
         working-directory: test-code
         run: |
-          cmake -B build -S .
+          cmake -B build -S . -DCMAKE_CXX_COMPILER=clang++ 
           cmake --build build --target all
           
