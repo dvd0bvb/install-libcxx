@@ -22,7 +22,7 @@ runs:
         if [[ "$MSAN" != "false" ]]; then 
           SUFFIX=-msan
         fi
-        echo "package-name=libcxx-${{ inputs.libcxx_version }}$SUFFIX" >> $GITHUB_OUTPUT
+        echo "package-name=libc++-${{ inputs.libcxx_version }}$SUFFIX" >> $GITHUB_OUTPUT
       shell: bash
     - run: |
         wget $(wget -q -O - https://api.github.com/repos/dvd0bvb/build-libcxx/releases/tags/${{ inputs.libcxx_version }} |  jq -r '.assets[] | select(.name == "${{ steps.generate-name.outputs.package-name }}.deb") | .browser_download_url')        
