@@ -16,8 +16,14 @@ target_compile_options(${EXECUTABLE_NAME} PRIVATE
 target_link_libraries(${EXECUTABLE_NAME} PRIVATE c++ c++abi)
 target_link_directories(${EXECUTABLE_NAME} PRIVATE ${LIBCXX_LIB_PATH})
 
-if (MSAN_FLAG) 
+if (MSAN_FLAGS) 
   target_compile_options(${EXECUTABLE_NAME} PRIVATE
+    -fsanitize=memory
+    -fsanitize-memory-track-origins
+    -fPIE
+    -pie
+    -fno-omit-frame-pointer)
+  target_link_options(${EXECUTABLE_NAME} PRIVATE
     -fsanitize=memory
     -fsanitize-memory-track-origins
     -fPIE
